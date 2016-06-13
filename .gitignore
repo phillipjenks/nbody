@@ -1,7 +1,8 @@
 # Untracked files
 
-./cpp/nbody/.vs
-./cpp/nbody/Debug
-./cpp/nbody/ipch
-./cpp/nbody/nbody/Debug
-./cpp/nbody/nbody/nbody.VC.VC.opendb
+cpp/nbody/.vs
+cpp/nbody/Debug
+cpp/nbody/ipch
+cpp/nbody/nbody/Debug
+cpp/nbody/nbody.VC*
+cpp/nbody/nbody.sdf
