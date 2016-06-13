@@ -6,8 +6,8 @@
 
 // Default Constructor
 // Initialize default sim configurations
-SimManager::SimManager()
-{
+SimManager::SimManager() {
+
 	config.timeStep = 0.01;
 	config.softeningParam = 0.0025;
 }
@@ -23,6 +23,7 @@ bool SimManager::init() {
 
 // Print sim config
 void SimManager::printConfig() const {
+
 	std::cout << "Sim Config" << std::endl;
 	std::cout << '\t' << "Time Step:       " << config.timeStep << std::endl;
 	std::cout << '\t' << "Softening Param: " << config.softeningParam << std::endl;
