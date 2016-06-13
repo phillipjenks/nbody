@@ -1,0 +1,6 @@
+# Untracked files
+
+./cpp/nbody/.vs
+./cpp/nbody/Debug
+./cpp/nbody/ipch
+./cpp/nbody/nbody/Debug
