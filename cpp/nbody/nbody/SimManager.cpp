@@ -6,7 +6,9 @@
 
 // Default Constructor
 // Initialize default sim configurations
-SimManager::SimManager() {
+SimManager::SimManager()
+	: time(0)
+{
 
 	config.timeStep = 0.01;
 	config.softeningParam = 0.0025;

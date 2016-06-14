@@ -29,7 +29,11 @@ public:
 
 private:
 
+	// Struct with configuration parameters
 	SimConfig config;
+
+	// current time
+	double time;
 
 	// Utility to print the sim configuration
 	void printConfig() const;

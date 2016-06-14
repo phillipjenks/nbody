@@ -21,7 +21,19 @@ Vec3::Vec3(double x, double y, double z)
 
 // Return vector length
 double Vec3::length() const {
-	return std::sqrt(x * x + y * y + z * z);
+	return std::sqrt(lengthSquare());
+}
+double Vec3::lengthSquare() const {
+	return x * x + y * y + z * z;
+}
+
+Vec3& Vec3::operator+=(const Vec3& other) {
+	
+	x += other.x;
+	y += other.y;
+	z += other.z;
+
+	return *this;
 }
 
 Vec3 operator+(const Vec3& lhs, const Vec3& rhs) {
