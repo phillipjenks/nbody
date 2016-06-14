@@ -22,6 +22,9 @@ public:
 
 	// Return vector length
 	double length() const;
+	double lengthSquare() const;
+
+	Vec3& operator+=(const Vec3& other);
 };
 
 // Utility operator overloading
