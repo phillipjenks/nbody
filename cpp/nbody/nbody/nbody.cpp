@@ -10,7 +10,7 @@
 int main(int argc, char** argv)
 {
 
-	SimManager simulation;
+	SimManager& simulation = SimManager::GetManager();
 
 	std::cout << "---- Initializing Sim" << std::endl;
 	simulation.init();

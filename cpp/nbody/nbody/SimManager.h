@@ -13,7 +13,8 @@ class SimManager
 {
 public:
 
-	SimManager();
+	static SimManager& GetManager();
+
 	~SimManager() = default;
 
 	SimManager(const SimManager&) = delete;
@@ -28,6 +29,9 @@ public:
 	bool init();
 
 private:
+
+	// Private constructor for singleton instance
+	SimManager();
 
 	// Struct with configuration parameters
 	SimConfig config;
