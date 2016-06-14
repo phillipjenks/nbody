@@ -4,9 +4,10 @@
 
 #include <vector>
 
+#include "SimBody.h"
+
 // Forward Declarations
 class Vec3;
-class SimBody;
 
 // aliasing
 using VecBody = std::vector<SimBody>;
@@ -20,6 +21,9 @@ public:
 
 	// Run a time step for our bodies
 	void runTimeStep(double dt);
+
+	// Dump body data to output
+	void dumpOutput() const;
 
 private:
 

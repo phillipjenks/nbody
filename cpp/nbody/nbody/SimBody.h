@@ -12,14 +12,21 @@ public:
 	SimBody(double mass, const Vec3& pos, const Vec3& vel);
 
 	void prepForTimeStep();
-	void applyForce(double dt, const SimBody&);
+	void applyForceFrom(double dt, const SimBody&);
 	void updatePosAndVel();
+
+	inline bool areSameBody(const SimBody& other) { return id == other.id; }
+
+	unsigned int getId() const { return id; }
+	double getMass() const { return mass; }
+	const Vec3& getPos() const { return pos; }
+	const Vec3& getVel() const { return vel; }
 
 private:
 
-	static int globalId;
+	static unsigned int globalId;
 
-	int id;
+	unsigned int id;
 
 	double mass;
 

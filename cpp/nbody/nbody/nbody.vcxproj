@@ -145,6 +145,8 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Physics.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="SimBody.h" />
     <ClInclude Include="SimBodyManager.h" />
     <ClInclude Include="SimManager.h" />
@@ -154,6 +156,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="nbody.cpp" />
+    <ClCompile Include="Physics.cpp" />
     <ClCompile Include="SimBody.cpp" />
     <ClCompile Include="SimBodyManager.cpp" />
     <ClCompile Include="SimManager.cpp" />
@@ -164,6 +167,9 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Vec3.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="nbody.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

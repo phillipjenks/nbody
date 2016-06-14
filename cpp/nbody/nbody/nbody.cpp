@@ -13,7 +13,13 @@ int main(int argc, char** argv)
 	SimManager& simulation = SimManager::GetManager();
 
 	std::cout << "---- Initializing Sim" << std::endl;
-	simulation.init();
+	if (!simulation.init()) {
+		std::cout << "---- Sim Failed To Initialize" << std::endl;
+		return 1;
+	}
+
+	std::cout << "---- Running Simulation" << std::endl;
+	simulation.runSimulation();
 
 	std::cout << "---- Simulation Finished" << std::endl;
 
