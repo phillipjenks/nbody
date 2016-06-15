@@ -6,3 +6,4 @@ cpp/nbody/ipch
 cpp/nbody/nbody/Debug
 cpp/nbody/nbody.VC*
 cpp/nbody/nbody.sdf
+test/output
