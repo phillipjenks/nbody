@@ -10,6 +10,7 @@
 namespace {
 	typedef struct {
 		double timeStep;
+		double outputFrequency;
 		double totalSimTime;
 		double softeningParam;
 
@@ -51,6 +52,7 @@ private:
 
 	// current time
 	double time;
+	double outputTime;
 
 	// Utility class for managing sim bodies
 	SimBodyManager bodyManager;

@@ -17,10 +17,12 @@ SimManager& SimManager::GetManager() {
 // Initialize default sim configurations
 SimManager::SimManager()
 	: time(0)
+	, outputTime(0)
 	, bodyManager()
 	, dataOutput()
 {
 	config.timeStep = 0.01;
+	config.outputFrequency = 0.01;
 	config.softeningParam = 0.0025;
 	config.totalSimTime = 1;
 	config.enableDebugOutput = true;
@@ -69,7 +71,10 @@ void SimManager::runSimulation() {
 			std::cout << "++++++++ Running step t = " << time << ", dt = " << dt << std::endl;
 		bodyManager.runTimeStep(dt);
 
-		dataOutput.dumpOutput(time, bodyManager.getBodies());
+		if (time >= outputTime) {
+			dataOutput.dumpOutput(time, bodyManager.getBodies());
+			outputTime += config.outputFrequency;
+		}
 		time += dt;
 	}
 }
@@ -78,10 +83,11 @@ void SimManager::runSimulation() {
 void SimManager::printConfig() const {
 
 	std::cout << "Sim Config" << std::endl;
-	std::cout << '\t' << "Time Step:       " << config.timeStep << std::endl;
-	std::cout << '\t' << "Total Sim Time:  " << config.totalSimTime << std::endl;
-	std::cout << '\t' << "Softening Param: " << config.softeningParam << std::endl;
-	std::cout << '\t' << "Debug Output:    " << (config.enableDebugOutput ? 'T' : 'F') << std::endl;
+	std::cout << '\t' << "Time Step:        " << config.timeStep << std::endl;
+	std::cout << '\t' << "Output Frequency: " << config.outputFrequency << std::endl;
+	std::cout << '\t' << "Total Sim Time:   " << config.totalSimTime << std::endl;
+	std::cout << '\t' << "Softening Param:  " << config.softeningParam << std::endl;
+	std::cout << '\t' << "Debug Output:     " << (config.enableDebugOutput ? 'T' : 'F') << std::endl;
 }
 
 namespace {
@@ -120,6 +126,9 @@ bool SimManager::loadConfig(const std::string& configFile) {
 		if (paramName == "TimeStep") {
 
 			loadValue(ssParam, tmpConfig.timeStep);
+		} else if (paramName == "OutputFrequency") {
+
+			loadValue(ssParam, tmpConfig.outputFrequency);
 		} else if (paramName == "TotalTime") {
 			
 			loadValue(ssParam, tmpConfig.totalSimTime);
