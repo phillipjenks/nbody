@@ -37,4 +37,7 @@ private:
 	Vec3 deltaVel;
 };
 
+// aliasing
+using VecBody = std::vector<SimBody>;
+
 #endif

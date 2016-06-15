@@ -1,5 +1,7 @@
 #include "stdafx.h"
 
+#include <filesystem>
+
 #include "SimManager.h"
 #include "SimBodyManager.h"
 #include "SimBody.h"
@@ -28,21 +30,5 @@ void SimBodyManager::runTimeStep(double dt) {
 
 	for (auto& body : bodies) {
 		body.updatePosAndVel();
-	}
-}
-
-void SimBodyManager::dumpOutput() const {
-
-	// Just dump to stdout for now
-	for (auto body : bodies) {
-		std::cout << "              Body: "
-					<< body.getId()
-					<< ", Mass: "
-					<< body.getMass()
-					<< ", Pos: "
-					<< body.getPos()
-					<< ", Vel: "
-					<< body.getVel()
-					<< std::endl;
 	}
 }

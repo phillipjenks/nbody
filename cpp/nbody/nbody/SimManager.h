@@ -2,7 +2,10 @@
 #ifndef __SIMMANAGER_H_
 #define __SIMMANAGER_H_
 
+#include <string>
+
 #include "SimBodyManager.h"
+#include "DataOutput.h"
 
 namespace {
 	typedef struct {
@@ -31,7 +34,7 @@ public:
 	// Initialize simulation
 	// -- Update config if necessary
 	// -- Read in initial conditions
-	bool init();
+	bool init(const std::string& configFile, const std::string& bodyFile);
 
 	// Run the simulation
 	void runSimulation();
@@ -52,8 +55,13 @@ private:
 	// Utility class for managing sim bodies
 	SimBodyManager bodyManager;
 
+	// Utility class for file output
+	DataOutput dataOutput;
+
 	// Utility to print the sim configuration
 	void printConfig() const;
+	bool loadConfig(const std::string& configFile);
+	bool loadBodies(const std::string& bodyFile);
 };
 
 #endif

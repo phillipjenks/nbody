@@ -9,9 +9,6 @@
 // Forward Declarations
 class Vec3;
 
-// aliasing
-using VecBody = std::vector<SimBody>;
-
 class SimBodyManager
 {
 public:
@@ -22,8 +19,10 @@ public:
 	// Run a time step for our bodies
 	void runTimeStep(double dt);
 
-	// Dump body data to output
-	void dumpOutput() const;
+	// Method to assess whether or not we own any bodies
+	bool hasBodies() const { return !bodies.empty(); }
+
+	const VecBody& getBodies() const { return bodies; }
 
 private:
 

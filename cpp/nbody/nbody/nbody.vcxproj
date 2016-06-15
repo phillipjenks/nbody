@@ -145,6 +145,7 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="DataOutput.h" />
     <ClInclude Include="Physics.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="SimBody.h" />
@@ -155,6 +156,7 @@
     <ClInclude Include="Vec3.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="DataOutput.cpp" />
     <ClCompile Include="nbody.cpp" />
     <ClCompile Include="Physics.cpp" />
     <ClCompile Include="SimBody.cpp" />

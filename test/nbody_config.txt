@@ -1,0 +1,4 @@
+TimeStep 0.02
+TotalTime 2
+SofteningParam 0.0002
+DebugOutput 0
