@@ -30,6 +30,12 @@ SimManager::SimManager()
 bool SimManager::init(const std::string& configFile, const std::string& bodyFile) {
 
 	std::cout << "Sim Initialization" << std::endl;
+
+	if (!dataOutput.init()) {
+		std::cout << "Failed to initialize data output module" << std::endl;
+		return false;
+	}
+
 	if (!configFile.empty()) {
 		if (!loadConfig(configFile)) {
 			std::cout << "Failed to load given config file " << configFile << ". Using default configuration" << std::endl;
@@ -45,8 +51,6 @@ bool SimManager::init(const std::string& configFile, const std::string& bodyFile
 		std::cout << "Failed to load initial condition file " << bodyFile << std::endl;
 		return false;
 	}
-
-	dataOutput.init();
 
 	return true;
 }

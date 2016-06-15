@@ -11,10 +11,26 @@
 
 const std::string OUT_DIRECTORY = "output";
 
-void DataOutput::init() const {
+bool DataOutput::init() const {
 
-	std::experimental::filesystem::remove_all(OUT_DIRECTORY);
-	std::experimental::filesystem::create_directory(OUT_DIRECTORY);
+	std::error_code errCode;
+	std::experimental::filesystem::remove_all(OUT_DIRECTORY, errCode);
+
+	int errVal = errCode.value();
+	if (errVal) {
+		std::cout << "Failed to clear out old output directory '" << OUT_DIRECTORY << "' with error: " << errCode.message() << std::endl;
+		return false;
+	}
+
+	std::experimental::filesystem::create_directory(OUT_DIRECTORY, errCode);
+
+	errVal = errCode.value();
+	if (errVal) {
+		std::cout << "Failed to create output directory '" << OUT_DIRECTORY << "' with error: " << errCode.message() << std::endl;
+		return false;
+	}
+
+	return true;
 }
 
 void DataOutput::dumpOutput(double time, const VecBody& bodies) {

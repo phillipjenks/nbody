@@ -8,7 +8,7 @@ class DataOutput
 {
 public:
 
-	void init() const;
+	bool init() const;
 	void dumpOutput(double time, const VecBody& bodies);
 
 private:
