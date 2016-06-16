@@ -7,4 +7,5 @@ cpp/nbody/nbody/Debug
 cpp/nbody/nbody.VC*
 cpp/nbody/nbody.sdf
 test/output
+test/imgs
 test/nbody.exe
