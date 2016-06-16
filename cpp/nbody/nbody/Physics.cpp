@@ -17,7 +17,7 @@ Vec3 gravitationalAcceleration(double mass, const Vec3& pos) {
 
 	double distSq = pos.lengthSquare();
 	if (distSq > 0) {
-		double accMag = mass / (distSq + manager.getConfig().softeningParam);
+		double accMag = manager.getConfig().gravityStrength * mass / (distSq + manager.getConfig().softeningParam);
 		acc *= accMag;
 	}
 

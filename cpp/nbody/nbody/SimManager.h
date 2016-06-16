@@ -13,6 +13,7 @@ namespace {
 		double outputFrequency;
 		double totalSimTime;
 		double softeningParam;
+		double gravityStrength;
 
 		bool enableDebugOutput;
 	} SimConfig;

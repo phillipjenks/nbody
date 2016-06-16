@@ -24,6 +24,7 @@ SimManager::SimManager()
 	config.timeStep = 0.01;
 	config.outputFrequency = 0.01;
 	config.softeningParam = 0.0025;
+	config.gravityStrength = 0.001;
 	config.totalSimTime = 1;
 	config.enableDebugOutput = true;
 }
@@ -87,6 +88,7 @@ void SimManager::printConfig() const {
 	std::cout << '\t' << "Output Frequency: " << config.outputFrequency << std::endl;
 	std::cout << '\t' << "Total Sim Time:   " << config.totalSimTime << std::endl;
 	std::cout << '\t' << "Softening Param:  " << config.softeningParam << std::endl;
+	std::cout << '\t' << "Gravity Strength: " << config.gravityStrength << std::endl;
 	std::cout << '\t' << "Debug Output:     " << (config.enableDebugOutput ? 'T' : 'F') << std::endl;
 }
 
@@ -133,8 +135,11 @@ bool SimManager::loadConfig(const std::string& configFile) {
 			
 			loadValue(ssParam, tmpConfig.totalSimTime);
 		} else if (paramName == "SofteningParam") {
-		
+
 			loadValue(ssParam, tmpConfig.softeningParam);
+		} else if (paramName == "GravityStrength") {
+
+			loadValue(ssParam, tmpConfig.gravityStrength);
 		} else if (paramName == "DebugOutput") {
 		
 			loadValue(ssParam, tmpConfig.enableDebugOutput);
