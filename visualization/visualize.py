@@ -1,4 +1,4 @@
-import os, shutil
+import os, shutil, webbrowser
 from subprocess import Popen
 import matplotlib.pyplot as plt
 
@@ -79,6 +79,8 @@ def build_imgs():
 
 	pipe = Popen([os.path.join(SCRIPT_DIR, 'ffmpeg.exe'), '-framerate', '25', '-i', os.path.join(IMAGE_OUTPUT, 'img_%04d.png'), '-c:v', 'libx264', '-r', '25', '-pix_fmt', 'yuv420p', MOVIE_OUTPUT])
 	pipe.wait()
+
+	webbrowser.open(MOVIE_OUTPUT)
 
 
 if __name__ == "__main__":
