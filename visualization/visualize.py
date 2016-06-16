@@ -1,4 +1,4 @@
-import os
+import os, shutil
 import matplotlib.pyplot as plt
 
 DATA_DIRECTORY = os.path.join(os.getcwd(), 'output')
@@ -61,11 +61,12 @@ def build_imgs():
 
 		print '{0}\r'.format('Plotting Data: ' + str(int(100 * float(pt['data_number']) / total_points)) + '%'),
 
+		plt.clf()
 		plt.scatter(pt['x'], pt['y'], marker='*')
 		plt.title('time = ' + str(pt['time']))
 		plt.grid(True)
-		plt.xlim(-maxx, maxx)
-		plt.ylim(-maxy, maxy)
+		plt.xlim(-2 * maxx, 2 * maxx)
+		plt.ylim(-2 * maxy, 2 * maxy)
 
 		plt.savefig(os.path.join(IMAGE_OUTPUT, 'img_' + str(pt['data_number'])))
 
@@ -73,6 +74,9 @@ def build_imgs():
 
 
 if __name__ == "__main__":
-	if not os.path.exists(IMAGE_OUTPUT):
-		os.makedirs(IMAGE_OUTPUT)
+
+	if os.path.exists(IMAGE_OUTPUT):
+		shutil.rmtree(IMAGE_OUTPUT)
+
+	os.makedirs(IMAGE_OUTPUT)
 	build_imgs()
