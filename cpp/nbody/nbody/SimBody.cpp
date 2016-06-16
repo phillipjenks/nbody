@@ -55,8 +55,8 @@ void SimBody::applyForceFrom(double dt, const SimBody& other) {
 			std::cout << id << " deltas before rk with " << other.id << " on " << id << " " << deltaPos << " " << deltaVel << std::endl;
 
 		// Add up our RK estimations and translate back into the sim's main frame of reference
-		deltaPos += other.pos + dt * (k1r + 2 * k2r + 2 * k3r + k4r) / 6;
-		deltaVel += other.vel + dt * (k1v + 2 * k2v + 2 * k3v + k4v) / 6;
+		deltaPos += dt * (k1r + 2 * k2r + 2 * k3r + k4r) / 6;
+		deltaVel += dt * (k1v + 2 * k2v + 2 * k3v + k4v) / 6;
 
 		if (manager.getConfig().enableDebugOutput)
 			std::cout << other.id << " on " << id << " " << deltaPos << " " << deltaVel << std::endl;
