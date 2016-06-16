@@ -1,8 +1,11 @@
 import os, shutil
+from subprocess import Popen
 import matplotlib.pyplot as plt
 
 DATA_DIRECTORY = os.path.join(os.getcwd(), 'output')
 IMAGE_OUTPUT = os.path.join(os.getcwd(), 'imgs')
+MOVIE_OUTPUT = os.path.join(os.getcwd(), 'nbody_out.mp4')
+SCRIPT_DIR = os.path.dirname(os.path.realpath(__file__))
 
 def extract_data_point_from_file(file_name):
 
@@ -72,11 +75,19 @@ def build_imgs():
 
 	print '{0}\r'.format('Plotting Data: 100%')
 
+	print 'Creating Movie With FFMPEG'
+
+	pipe = Popen([os.path.join(SCRIPT_DIR, 'ffmpeg.exe'), '-framerate', '25', '-i', os.path.join(IMAGE_OUTPUT, 'img_%04d.png'), '-c:v', 'libx264', '-r', '25', '-pix_fmt', 'yuv420p', MOVIE_OUTPUT])
+	pipe.wait()
+
 
 if __name__ == "__main__":
 
 	if os.path.exists(IMAGE_OUTPUT):
 		shutil.rmtree(IMAGE_OUTPUT)
+
+	if os.path.exists(MOVIE_OUTPUT):
+		os.remove(MOVIE_OUTPUT)
 
 	os.makedirs(IMAGE_OUTPUT)
 	build_imgs()
