@@ -35,7 +35,12 @@ def build_imgs():
 
 	formatted_data = []
 	data_number = 0
+
+	total_points = len(data_points)
+	print ''
 	for pt in data_points:
+
+		print '{0}\r'.format('Formatting Data: ' + str(int(100 * float(data_number) / total_points)) + '%'),
 
 		formatted_point = {'data_number': data_number, 'time': pt['time'], 'x': [], 'y': []}
 		data_number += 1
@@ -49,8 +54,12 @@ def build_imgs():
 
 		formatted_data.append(formatted_point)
 
+	print '{0}\r'.format('Formatting Data: 100%')
+
 	# let's build our plots
 	for pt in formatted_data:
+
+		print '{0}\r'.format('Plotting Data: ' + str(int(100 * float(pt['data_number']) / total_points)) + '%'),
 
 		plt.scatter(pt['x'], pt['y'], marker='*')
 		plt.title('time = ' + str(pt['time']))
@@ -59,6 +68,8 @@ def build_imgs():
 		plt.ylim(-maxy, maxy)
 
 		plt.savefig(os.path.join(IMAGE_OUTPUT, 'img_' + str(pt['data_number'])))
+
+	print '{0}\r'.format('Plotting Data: 100%')
 
 
 if __name__ == "__main__":
