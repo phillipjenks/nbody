@@ -68,7 +68,7 @@ def build_imgs():
 		plt.xlim(-2 * maxx, 2 * maxx)
 		plt.ylim(-2 * maxy, 2 * maxy)
 
-		plt.savefig(os.path.join(IMAGE_OUTPUT, 'img_' + str(pt['data_number'])))
+		plt.savefig(os.path.join(IMAGE_OUTPUT, 'img_' + str(pt['data_number']).zfill(4)))
 
 	print '{0}\r'.format('Plotting Data: 100%')
 
