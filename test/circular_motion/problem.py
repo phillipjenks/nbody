@@ -1,5 +1,4 @@
-import os, sys, math
-sys.path.append(os.path.join(os.getcwd(), '..', '..'))
+import math
 
 from problem_builder import BodyBuilder
 from problem_builder import Body
