@@ -55,7 +55,9 @@ void SimBody::applyForceFrom(double dt, const SimBody& other) {
 		}
 
 		// Add up our RK estimations
-		deltaPos += dt * (k1r + 2 * k2r + 2 * k3r + k4r) / 6;
+		// Subtract off our additions from velocity so that they are not double counted
+		// This will be added back in SimBody::updatePosAndVel
+		deltaPos += dt * (k1r + 2 * k2r + 2 * k3r + k4r) / 6 - dt * vel;
 		deltaVel += dt * (k1v + 2 * k2v + 2 * k3v + k4v) / 6;
 
 		if (manager.getConfig().enableDebugOutput) {
@@ -64,14 +66,14 @@ void SimBody::applyForceFrom(double dt, const SimBody& other) {
 	}
 }
 
-void SimBody::updatePosAndVel() {
+void SimBody::updatePosAndVel(double dt) {
 
 	SimManager& manager = SimManager::GetManager();
 
 	if (manager.getConfig().enableDebugOutput)
 		std::cout << id << " Old Pos And Vel " << pos << " " << deltaPos << " " << vel << " " << deltaVel << std::endl;
 
-	pos += deltaPos;
+	pos += deltaPos + vel * dt;
 	vel += deltaVel;
 
 	if (manager.getConfig().enableDebugOutput)

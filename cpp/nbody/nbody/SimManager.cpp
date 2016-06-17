@@ -55,6 +55,8 @@ bool SimManager::init(const std::string& configFile, const std::string& bodyFile
 		return false;
 	}
 
+	std::cout << "Number Of Bodies: " << bodyManager.getBodies().size() << std::endl;
+
 	return true;
 }
 
@@ -71,6 +73,12 @@ void SimManager::runSimulation() {
 		std::cout << std::endl;
 	}
 
+	// dump initial condition
+	dataOutput.dumpOutput(time, bodyManager.getBodies());
+
+	// This is used to handle accuracy errors when comparing doubles
+	double outputThreshold = 0.001;
+
 	while (time < config.totalSimTime) {
 
 		if (!config.enableDebugOutput) {
@@ -84,12 +92,12 @@ void SimManager::runSimulation() {
 		}
 
 		bodyManager.runTimeStep(dt);
+		time += dt;
 
-		if (time >= outputTime) {
+		if (time >= (outputTime - outputThreshold)) {
 			dataOutput.dumpOutput(time, bodyManager.getBodies());
 			outputTime += config.outputFrequency;
 		}
-		time += dt;
 	}
 
 	if (!config.enableDebugOutput) {

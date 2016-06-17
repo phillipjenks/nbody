@@ -13,7 +13,7 @@ public:
 
 	void prepForTimeStep();
 	void applyForceFrom(double dt, const SimBody&);
-	void updatePosAndVel();
+	void updatePosAndVel(double dt);
 
 	inline bool areSameBody(const SimBody& other) { return id == other.id; }
 

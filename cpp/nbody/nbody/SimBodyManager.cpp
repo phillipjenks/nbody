@@ -29,6 +29,6 @@ void SimBodyManager::runTimeStep(double dt) {
 	}
 
 	for (auto& body : bodies) {
-		body.updatePosAndVel();
+		body.updatePosAndVel(dt);
 	}
 }
