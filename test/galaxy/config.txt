@@ -1,6 +1,6 @@
-TotalTime 10
+TotalTime 0.5
 GravityStrength 1
 DebugOutput 0
-TimeStep 0.001
-OutputFrequency 0.01
+TimeStep 5e-05
+OutputFrequency 0.001
 SofteningParam 0.0002

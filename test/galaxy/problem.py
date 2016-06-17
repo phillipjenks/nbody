@@ -13,4 +13,4 @@ class Problem(BodyBuilder):
 
 		builder = GalaxyBuilder([0, 0, 0], [0, 0, 0], 50)
 
-		return builder.build_galaxy(100)
+		return builder.build_galaxy(300)

@@ -1,9 +1,11 @@
 import sys, os
 sys.path.append(os.path.join(os.getcwd(), '..'))
+sys.path.append(os.path.join(os.getcwd(), '..', 'visualization'))
 
 from subprocess import Popen
 
 from problem_builder import ProblemBuilder
+import visualize as vis
 
 def main(problem):
 
@@ -24,8 +26,7 @@ def main(problem):
 	pipe.wait()
 
 	print '\nRunning problem visualization'
-	pipe = Popen(['python', os.path.join(os.getcwd(), '..', 'visualization', 'visualize.py')], shell=True)
-	pipe.wait()
+	vis.build_imgs(**builder.visualization_config)
 
 if __name__ == "__main__":
 
