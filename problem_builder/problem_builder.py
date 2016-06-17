@@ -13,9 +13,9 @@ class ProblemBuilder:
 
 		try:
 			self.BuilderModule = importlib.import_module('problem')
-		except ImportError:
+		except ImportError, err:
 			print 'ERROR: Unable to import problem builder for problem ' + problem
-			print "ERROR: Expected file called '" + os.path.join(problem, 'problem.py') + "'"
+			print err
 			return
 
 		if 'Problem' not in [x[0] for x in inspect.getmembers(self.BuilderModule)]:
@@ -26,7 +26,8 @@ class ProblemBuilder:
 		# Now check for optional config builder
 		try:
 			self.ConfigModule = importlib.import_module('config')
-		except ImportError:
+		except ImportError, err:
+			print err
 			print "No config detected. Using default or already existing 'config.txt'"
 
 		if self.ConfigModule and 'Config' not in [x[0] for x in inspect.getmembers(self.ConfigModule)]:
