@@ -69,6 +69,8 @@ def build_imgs():
 	if maxy == 0:
 		maxy = 1
 
+	maxxy = max(maxx, maxy)
+
 	# let's build our plots
 	for pt in formatted_data:
 
@@ -78,8 +80,8 @@ def build_imgs():
 		plt.scatter(pt['x'], pt['y'], marker='*')
 		plt.title('time = ' + str(pt['time']))
 		plt.grid(True)
-		plt.xlim(-2 * maxx, 2 * maxx)
-		plt.ylim(-2 * maxy, 2 * maxy)
+		plt.xlim(-2 * maxxy, 2 * maxxy)
+		plt.ylim(-2 * maxxy, 2 * maxxy)
 
 		plt.savefig(os.path.join(IMAGE_OUTPUT, 'img_' + str(pt['data_number']).zfill(4)))
 
