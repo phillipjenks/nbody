@@ -65,7 +65,16 @@ void SimManager::runSimulation() {
 		return;
 	}
 
+	char spacing[] = "                             ";
+
+	if (!config.enableDebugOutput)
+		std::cout << std::endl;
+
 	while (time < config.totalSimTime) {
+
+		if (!config.enableDebugOutput)
+			std::cout << '\t' << "Simulation Progress: " << time << "/" << config.totalSimTime << " (" << int(100 * time / config.totalSimTime) << "%)" << spacing << '\r';
+
 		double dt = std::fmin(config.timeStep, config.totalSimTime - time);
 
 		if(config.enableDebugOutput)
@@ -77,6 +86,10 @@ void SimManager::runSimulation() {
 			outputTime += config.outputFrequency;
 		}
 		time += dt;
+	}
+
+	if (!config.enableDebugOutput) {
+		std::cout << '\t' << "Simulation Progress: " << time << "/" << config.totalSimTime << " (100%)" << spacing << '\n' << std::endl;
 	}
 }
 
