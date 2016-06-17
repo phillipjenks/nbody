@@ -67,18 +67,22 @@ void SimManager::runSimulation() {
 
 	char spacing[] = "                             ";
 
-	if (!config.enableDebugOutput)
+	if (!config.enableDebugOutput) {
 		std::cout << std::endl;
+	}
 
 	while (time < config.totalSimTime) {
 
-		if (!config.enableDebugOutput)
+		if (!config.enableDebugOutput) {
 			std::cout << '\t' << "Simulation Progress: " << time << "/" << config.totalSimTime << " (" << int(100 * time / config.totalSimTime) << "%)" << spacing << '\r';
+		}
 
 		double dt = std::fmin(config.timeStep, config.totalSimTime - time);
 
-		if(config.enableDebugOutput)
+		if (config.enableDebugOutput) {
 			std::cout << "++++++++ Running step t = " << time << ", dt = " << dt << std::endl;
+		}
+
 		bodyManager.runTimeStep(dt);
 
 		if (time >= outputTime) {
