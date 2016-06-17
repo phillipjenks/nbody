@@ -15,6 +15,8 @@ class ConfigFileBuilder:
 			'DebugOutput': 1
 		}
 
+		self.visualization_config = {}
+
 	def build_file(self):
 
 		file_path = os.path.join(os.getcwd(), self.problem, 'config.txt')

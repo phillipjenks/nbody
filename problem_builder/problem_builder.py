@@ -9,6 +9,8 @@ class ProblemBuilder:
 		self.BuilderModule = None
 		self.ConfigModule = None
 
+		self.visualization_config = {}
+
 		sys.path.append(os.path.join(os.getcwd(), problem))
 
 		try:
@@ -48,4 +50,5 @@ class ProblemBuilder:
 		if self.ConfigModule:
 			config_builder = self.ConfigModule.Config(self.problem)
 			config_builder.build_file()
+			self.visualization_config = config_builder.visualization_config
 

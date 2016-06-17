@@ -23,7 +23,20 @@ def extract_data_point_from_file(file_name):
 
 	return data_point
 
-def build_imgs():
+def build_imgs(**kwargs):
+
+	custom_lim = None
+	if kwargs is not None:
+		if 'custom_lim' in kwargs.keys():
+			custom_lim = kwargs['custom_lim']
+
+	if os.path.exists(IMAGE_OUTPUT):
+		shutil.rmtree(IMAGE_OUTPUT)
+
+	if os.path.exists(MOVIE_OUTPUT):
+		os.remove(MOVIE_OUTPUT)
+
+	os.makedirs(IMAGE_OUTPUT)
 
 	data_list = os.listdir(DATA_DIRECTORY)
 	total_points = len(data_list)
@@ -71,6 +84,11 @@ def build_imgs():
 
 	maxxy = max(maxx, maxy)
 
+	if custom_lim:
+		maxxy = custom_lim
+	else:
+		maxxy *= 2
+
 	# let's build our plots
 	for pt in formatted_data:
 
@@ -80,8 +98,8 @@ def build_imgs():
 		plt.scatter(pt['x'], pt['y'], marker='*')
 		plt.title('time = ' + str(pt['time']))
 		plt.grid(True)
-		plt.xlim(-2 * maxxy, 2 * maxxy)
-		plt.ylim(-2 * maxxy, 2 * maxxy)
+		plt.xlim(-maxxy, maxxy)
+		plt.ylim(-maxxy, maxxy)
 
 		plt.savefig(os.path.join(IMAGE_OUTPUT, 'img_' + str(pt['data_number']).zfill(4)))
 
@@ -96,12 +114,4 @@ def build_imgs():
 
 
 if __name__ == "__main__":
-
-	if os.path.exists(IMAGE_OUTPUT):
-		shutil.rmtree(IMAGE_OUTPUT)
-
-	if os.path.exists(MOVIE_OUTPUT):
-		os.remove(MOVIE_OUTPUT)
-
-	os.makedirs(IMAGE_OUTPUT)
 	build_imgs()
