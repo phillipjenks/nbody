@@ -9,7 +9,7 @@ class Config(ConfigFileBuilder):
 		ConfigFileBuilder.__init__(self, problem)
 
 		self.config['TimeStep'] = 0.001
-		self.config['OutputFrequency'] = 0.01
+		self.config['OutputFrequency'] = 0.1
 		self.config['TotalTime'] = 10
 		self.config['SofteningParam'] = 0.0002
 		self.config['GravityStrength'] = 1

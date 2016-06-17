@@ -13,7 +13,7 @@ class Problem(BodyBuilder):
 
 		self.bodies.append(Body(1, [0, 0, 0], [0, 0, 0]))
 
-		r = 1
+		r = 10
 
 		# GM / r^2 = v^2 / r
 		# => v = sqrt(GM / r)
