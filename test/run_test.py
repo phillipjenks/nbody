@@ -7,7 +7,7 @@ from problem_builder import ProblemBuilder
 
 def main(problem):
 
-	print 'Building Problem: ' + problem
+	print '\nBuilding Problem: ' + problem
 	builder = ProblemBuilder(problem)
 	builder.build_problem()
 
@@ -19,11 +19,11 @@ def main(problem):
 	if os.path.exists(os.path.join(os.getcwd(), problem, 'config.txt')):
 		args.extend(['-c', os.path.join(problem, 'config.txt')])
 
-	print 'Running problem simulation'
+	print '\nRunning problem simulation'
 	pipe = Popen(args, shell=True)
 	pipe.wait()
 
-	print 'Running problem visualization'
+	print '\nRunning problem visualization'
 	pipe = Popen(['python', os.path.join(os.getcwd(), '..', 'visualization', 'visualize.py')], shell=True)
 	pipe.wait()
 

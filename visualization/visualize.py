@@ -26,21 +26,26 @@ def extract_data_point_from_file(file_name):
 def build_imgs():
 
 	data_list = os.listdir(DATA_DIRECTORY)
+	total_points = len(data_list)
 
 	data_points = []
+	data_number = 0
+
+	print ''
 
 	for data_file in data_list:
+		print '{0}\r'.format('Extracting Data: ' + str(int(100 * float(data_number) / total_points)) + '%'),
+		data_number += 1
 		data_points.append(extract_data_point_from_file(data_file))
 
+	print '{0}\r'.format('Extracting Data: 100%')
 	# extract min and max
 	maxx = 0
 	maxy = 0
 
 	formatted_data = []
 	data_number = 0
-
-	total_points = len(data_points)
-	print ''
+	
 	for pt in data_points:
 
 		print '{0}\r'.format('Formatting Data: ' + str(int(100 * float(data_number) / total_points)) + '%'),
@@ -58,6 +63,11 @@ def build_imgs():
 		formatted_data.append(formatted_point)
 
 	print '{0}\r'.format('Formatting Data: 100%')
+
+	if maxx == 0:
+		maxx = 1
+	if maxy == 0:
+		maxy = 1
 
 	# let's build our plots
 	for pt in formatted_data:
