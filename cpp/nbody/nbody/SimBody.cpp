@@ -37,29 +37,30 @@ void SimBody::applyForceFrom(double dt, const SimBody& other) {
 		SimManager& manager = SimManager::GetManager();
 
 		Vec3 relPos = pos - other.pos;
-		Vec3 relVel = vel - other.vel;
 
 		Vec3 k1v = gravitationalAcceleration(other.mass, relPos);
-		Vec3 k1r = relVel;
+		Vec3 k1r = vel;
 
 		Vec3 k2v = gravitationalAcceleration(other.mass, relPos + 0.5 * dt * k1r);
-		Vec3 k2r = relVel + 0.5 * dt * k1v;
+		Vec3 k2r = vel + 0.5 * dt * k1v;
 
 		Vec3 k3v = gravitationalAcceleration(other.mass, relPos + 0.5 * dt * k2r);
-		Vec3 k3r = relVel + 0.5 * dt * k2v;
+		Vec3 k3r = vel + 0.5 * dt * k2v;
 
 		Vec3 k4v = gravitationalAcceleration(other.mass, relPos + 0.5 * dt * k3r);
-		Vec3 k4r = relVel + dt * k3v;
+		Vec3 k4r = vel + dt * k3v;
 
-		if(manager.getConfig().enableDebugOutput)
+		if (manager.getConfig().enableDebugOutput) {
 			std::cout << id << " deltas before rk with " << other.id << " on " << id << " " << deltaPos << " " << deltaVel << std::endl;
+		}
 
-		// Add up our RK estimations and translate back into the sim's main frame of reference
+		// Add up our RK estimations
 		deltaPos += dt * (k1r + 2 * k2r + 2 * k3r + k4r) / 6;
 		deltaVel += dt * (k1v + 2 * k2v + 2 * k3v + k4v) / 6;
 
-		if (manager.getConfig().enableDebugOutput)
+		if (manager.getConfig().enableDebugOutput) {
 			std::cout << other.id << " on " << id << " " << deltaPos << " " << deltaVel << std::endl;
+		}
 	}
 }
 
