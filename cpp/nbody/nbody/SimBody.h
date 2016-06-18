@@ -15,7 +15,7 @@ public:
 	void applyForceFrom(double dt, const SimBody&);
 	void updatePosAndVel(double dt);
 
-	inline bool areSameBody(const SimBody& other) { return id == other.id; }
+	inline bool areSameBody(const SimBody& other) const { return id == other.id; }
 
 	unsigned int getId() const { return id; }
 	double getMass() const { return mass; }
