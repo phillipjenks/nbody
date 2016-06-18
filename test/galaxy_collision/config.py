@@ -8,7 +8,7 @@ class Config(ConfigFileBuilder):
 
 		self.config['TimeStep'] = 0.0001
 		self.config['OutputFrequency'] = 0.01
-		self.config['TotalTime'] = 5
+		self.config['TotalTime'] = 0.5
 		self.config['SofteningParam'] = 0.0002
 		self.config['GravityStrength'] = 1
 		self.config['DebugOutput'] = 0
