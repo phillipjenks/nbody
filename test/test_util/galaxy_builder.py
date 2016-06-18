@@ -7,11 +7,7 @@ random.seed()
 
 class GalaxyBuilder:
 
-	def __init__(self, pos, vel, radius):
-
-		self.pos = pos
-		self.vel = vel
-		self.radius = radius
+	def __init__(self):
 
 		self.mass = 1e8
 
@@ -24,34 +20,35 @@ class GalaxyBuilder:
 
 		return [-v_mag * pos[1] / r, v_mag * pos[0] / r, 0]
 
-	def _build_star(self):
+	def _build_star(self, pos, vel, radius, inner_radius):
 
-		x = 0
-		while x == 0:
-			x = random.randint(-self.radius, self.radius)
+		r = 0
+		while r == 0:
+			r = random.random() * (radius - inner_radius) + inner_radius
 
-		y = 0
-		while y == 0:
-			y = random.randint(-self.radius, self.radius)
+		th = random.random() * 360
+
+		x = r * math.cos(math.radians(th))
+		y = r * math.sin(math.radians(th))
 
 		star_pos = [x, y, 0]
 		star_vel = self._calculate_vel(star_pos)
 
 		for i in xrange(len(star_pos)):
-			star_pos[i] += self.pos[i]
+			star_pos[i] += pos[i]
 
 		for i in xrange(len(star_vel)):
-			star_vel[i] += self.vel[i]
+			star_vel[i] += vel[i]
 
 		return Body(1, star_pos, star_vel)
 
 
-	def build_galaxy(self, num_stars):
+	def build_galaxy(self, pos = [0, 0, 0], vel = [0, 0, 0], radius = 50, inner_radius = 1, num_stars = 100):
 
-		bodies = [Body(self.mass, self.pos, self.vel)]
+		bodies = [Body(self.mass, pos, vel)]
 
 		for i in xrange(num_stars):
-			bodies.append(self._build_star())
+			bodies.append(self._build_star(pos, vel, radius, inner_radius))
 
 		return bodies
 
