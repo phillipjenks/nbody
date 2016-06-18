@@ -11,6 +11,6 @@ class Problem(BodyBuilder):
 
 	def build_bodies(self):
 
-		builder = GalaxyBuilder([0, 0, 0], [0, 0, 0], 50)
+		builder = GalaxyBuilder()
 
-		return builder.build_galaxy(300)
+		return builder.build_galaxy(pos = [10, 10, 0], vel = [-100, -100, 0], radius = 50, inner_radius = 5, num_stars = 300)
