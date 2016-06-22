@@ -5,12 +5,12 @@ and visualization. THIS IS STILL IN THE VERY EARLY STAGES OF DEVELOPMENT. This m
 
 ## Dependencies
 - Python 2.7
--- The visualization scripts use [matplotlib](http://matplotlib.org/) to create individual frames. Depending on the state of your python installation, matplotlib recomends 
+- The visualization scripts use [matplotlib](http://matplotlib.org/) to create individual frames. Depending on the state of your python installation, matplotlib recomends 
 installing some standalone Python environments that support the full [SciPy stack](http://www.scipy.org/install.html). I found the easiest way is just to use pip
 ```python
 pip install matplotlib
 ```
--- The visualization scripts also use ffmpeg to create an mp4. This repo includes a 64-bit version of ffmpeg for windows (this will likely change) so you should replace this for 32-bit Windows.
+- The visualization scripts also use ffmpeg to create an mp4. This repo includes a 64-bit version of ffmpeg for windows (this will likely change) so you should replace this for 32-bit Windows.
 
 ## Usage
 The problem initial condition is specified in a text file that lists the individual bodies on separate lines with mass, position components, and velocity components separated by spaces.
