@@ -29,3 +29,15 @@ Usage the `-c` argument you can provide an optional configuration file as input 
 - GravityStrength: Constant parameter that defines the strength of gravity
 - SofteningParam: Constant that is added to r^2 in the denominator of the gravity equation to avoid numerical errors from dividing by small numbers
 - DebugOutput: (0 or 1) Controls detail of output. 0 is recommended unless you're debugging your sim parameters.
+
+## Test Problems
+
+Included in this repo are several test problems. To run an individual test problem
+
+- build the nbody executable
+- cd into the `test` directory
+- run `python run_test.py <problem_name>`
+
+This will build the body and config files for the test problem, run the simulation, and create the output movie `nbody_out.mp4`. The file `profile_data` will also be created. It shows some time profiling stats for the test problem. 
+
+To create your own test problem, you will need to provide a `problem.py` file in your test problem directory. `problem.py` should define a class `Problem` that inherits from the `BodyBuilder` utility class in the `problem_builder` module. You need to override the `build_bodies` method, which returns a list of body objects. These bodies will be used to create your problem's initial condition. You can also provide a `config.py` file, which defines the class `Config` (inherits from `ConfigFileBuilder`) in order to provide custom params. Providing your own `config.txt` file that you build yourself is also sufficient. See the included test problems for examples.
