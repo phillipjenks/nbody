@@ -107,7 +107,7 @@ def build_imgs(**kwargs):
 
 	print 'Creating Movie With FFMPEG'
 
-	pipe = Popen([os.path.join(SCRIPT_DIR, 'ffmpeg.exe'), '-framerate', '25', '-i', os.path.join(IMAGE_OUTPUT, 'img_%04d.png'), '-c:v', 'libx264', '-r', '25', '-pix_fmt', 'yuv420p', MOVIE_OUTPUT])
+	pipe = Popen(['ffmpeg.exe', '-framerate', '25', '-i', os.path.join(IMAGE_OUTPUT, 'img_%04d.png'), '-c:v', 'libx264', '-r', '25', '-pix_fmt', 'yuv420p', MOVIE_OUTPUT])
 	pipe.wait()
 
 	webbrowser.open(MOVIE_OUTPUT)
