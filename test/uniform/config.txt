@@ -1,4 +1,4 @@
-TotalTime 1.5
+TotalTime 2
 GravityStrength 1
 DebugOutput 0
 TimeStep 0.001
