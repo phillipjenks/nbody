@@ -42,6 +42,12 @@ public:
 	void runSimulation();
 
 	const SimConfig& getConfig() const { return config; }
+	std::string getConfigFileName() const { return configFile; }
+	std::string getBodyFileName() const { return bodyFile; }
+
+	unsigned int getTotalNumberOfBodies() const { return bodyManager.getBodies().size(); }
+
+	std::string getConfigAsString() const;
 
 private:
 
@@ -50,6 +56,12 @@ private:
 
 	// Struct with configuration parameters
 	SimConfig config;
+
+	// Config file name
+	std::string configFile;
+
+	// Body file name
+	std::string bodyFile;
 
 	// current time
 	double time;

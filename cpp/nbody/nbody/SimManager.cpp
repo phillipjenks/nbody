@@ -6,6 +6,8 @@
 #include <cmath>
 
 #include "SimManager.h"
+#include "TimedInterval.h"
+#include "TimeProfiler.h"
 
 SimManager& SimManager::GetManager() {
 
@@ -40,9 +42,12 @@ bool SimManager::init(const std::string& configFile, const std::string& bodyFile
 	}
 
 	if (!configFile.empty()) {
+		START_TIMED_INTERVAL("Read Config File");
+		this->configFile = configFile;
 		if (!loadConfig(configFile)) {
 			std::cout << "Failed to load given config file " << configFile << ". Using default configuration" << std::endl;
 		}
+		STOP_TIMED_INTERVAL("Read Config File");
 	}
 	printConfig();
 
@@ -50,12 +55,16 @@ bool SimManager::init(const std::string& configFile, const std::string& bodyFile
 		std::cout << "No Body File Given" << std::endl;
 		return false;
 	}
+
+	START_TIMED_INTERVAL("Read Body File");
+	this->bodyFile = bodyFile;
 	if (!loadBodies(bodyFile)) {
 		std::cout << "Failed to load initial condition file " << bodyFile << std::endl;
 		return false;
 	}
+	STOP_TIMED_INTERVAL("Read Body File");
 
-	std::cout << "Number Of Bodies: " << bodyManager.getBodies().size() << std::endl;
+	std::cout << "Number Of Bodies: " << getTotalNumberOfBodies() << std::endl;
 
 	return true;
 }
@@ -81,6 +90,8 @@ void SimManager::runSimulation() {
 
 	while (time < config.totalSimTime) {
 
+		TIMED_INTERVAL("Simulation Loop");
+
 		if (!config.enableDebugOutput) {
 			std::cout << '\t' << "Simulation Progress: " << time << "/" << config.totalSimTime << " (" << int(100 * time / config.totalSimTime) << "%)" << spacing << '\r';
 		}
@@ -105,16 +116,26 @@ void SimManager::runSimulation() {
 	}
 }
 
+// Return the config as a string
+std::string SimManager::getConfigAsString() const {
+
+	std::stringstream configStream;
+
+	configStream << "Sim Config" << '\n';
+	configStream << '\t' << "Time Step:        " << config.timeStep << '\n';
+	configStream << '\t' << "Output Frequency: " << config.outputFrequency << '\n';
+	configStream << '\t' << "Total Sim Time:   " << config.totalSimTime << '\n';
+	configStream << '\t' << "Softening Param:  " << config.softeningParam << '\n';
+	configStream << '\t' << "Gravity Strength: " << config.gravityStrength << '\n';
+	configStream << '\t' << "Debug Output:     " << (config.enableDebugOutput ? 'T' : 'F');
+
+	return configStream.str();
+}
+
 // Print sim config
 void SimManager::printConfig() const {
 
-	std::cout << "Sim Config" << std::endl;
-	std::cout << '\t' << "Time Step:        " << config.timeStep << std::endl;
-	std::cout << '\t' << "Output Frequency: " << config.outputFrequency << std::endl;
-	std::cout << '\t' << "Total Sim Time:   " << config.totalSimTime << std::endl;
-	std::cout << '\t' << "Softening Param:  " << config.softeningParam << std::endl;
-	std::cout << '\t' << "Gravity Strength: " << config.gravityStrength << std::endl;
-	std::cout << '\t' << "Debug Output:     " << (config.enableDebugOutput ? 'T' : 'F') << std::endl;
+	std::cout << getConfigAsString() << std::endl;
 }
 
 namespace {

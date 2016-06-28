@@ -45,6 +45,12 @@
     <ClInclude Include="DataOutput.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="TimeProfiler.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TimedInterval.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -69,6 +75,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="DataOutput.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TimeProfiler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TimedInterval.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
