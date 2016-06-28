@@ -10,4 +10,5 @@ test/output
 test/imgs
 test/nbody.exe
 test/nbody_out.mp4
+test/profile_data
 *.pyc
