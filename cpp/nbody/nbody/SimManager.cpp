@@ -4,6 +4,7 @@
 #include <fstream>
 #include <sstream>
 #include <cmath>
+#include <algorithm>
 
 #include "SimManager.h"
 #include "TimedInterval.h"
@@ -146,6 +147,23 @@ namespace {
 		ss >> tmpVal;
 		
 		currVal = tmpVal;
+	}
+
+	// Implement specific functionality for loadValue::<bool>
+	void loadValue(std::stringstream& ss, bool& currVal) {
+
+		std::string asString;
+		loadValue(ss, asString);
+
+		if (!asString.empty()) {
+
+			std::transform(asString.begin(), asString.end(), asString.begin(), ::tolower);
+			if (asString == "true" || asString == "t" || asString == "1") {
+				currVal = true;
+			} else if(asString == "false" || asString == "f" || asString == "0") {
+				currVal = false;
+			}
+		}
 	}
 }
 
