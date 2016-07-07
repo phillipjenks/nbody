@@ -28,7 +28,7 @@ Usage the `-c` argument you can provide an optional configuration file as input 
 - OutputFrequency: Amount of time in between data dumps (this name will likely change)
 - GravityStrength: Constant parameter that defines the strength of gravity
 - SofteningParam: Constant that is added to r^2 in the denominator of the gravity equation to avoid numerical errors from dividing by small numbers
-- DebugOutput: (0 or 1) Controls detail of output. 0 is recommended unless you're debugging your sim parameters.
+- DebugOutput: (0, 1, T, True, F, or False) Controls detail of output. False is recommended unless you're debugging your sim parameters.
 
 ## Test Problems
 
