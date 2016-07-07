@@ -1,6 +1,6 @@
 # N-Body Simulator
 
-This simulator is an RK4 based N-Body gravity simulator written in C++. Included in the project is the source and a set of utilities written in Python for building initial conditions
+This simulator is an N-Body gravity simulator written in C++. Included in the project is the source and a set of utilities written in Python for building initial conditions
 and visualization. THIS IS STILL IN THE VERY EARLY STAGES OF DEVELOPMENT. This means that config params might change and that the sim shouldn't be expected to be entirely stable.
 
 ## Dependencies
@@ -23,12 +23,13 @@ mass_n ...
 ```
 
 Usage the `-c` argument you can provide an optional configuration file as input to set up the sim parameters. These parameters are
-- TotalTime: Total simulation time
-- TimeStep: The simulation time step
-- OutputFrequency: Amount of time in between data dumps (this name will likely change)
-- GravityStrength: Constant parameter that defines the strength of gravity
-- SofteningParam: Constant that is added to r^2 in the denominator of the gravity equation to avoid numerical errors from dividing by small numbers
-- DebugOutput: (0, 1, T, True, F, or False) Controls detail of output. False is recommended unless you're debugging your sim parameters.
+- TotalTime: Total simulation time. Defaults to 1.
+- TimeStep: The simulation time step. Defaults to 0.01.
+- OutputFrequency: Amount of time in between data dumps (this name will likely change). Defaults to 0.01.
+- GravityStrength: Constant parameter that defines the strength of gravity. Defaults to 0.001.
+- SofteningParam: Constant that is added to r^2 in the denominator of the gravity equation to avoid numerical errors from dividing by small numbers. Defaults to 0.0025.
+- Solver: ('rk4' or 'newtonian') Sets the integration scheme. Defaults to 'rk4'.
+- DebugOutput: (0, 1, T, True, F, or False) Controls detail of output. False is recommended unless you're debugging your sim parameters. Defaults to true.
 
 ## Test Problems
 
