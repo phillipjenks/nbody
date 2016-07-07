@@ -35,6 +35,9 @@ private:
 
 	Vec3 vel;
 	Vec3 deltaVel;
+
+	void solver_rk4(double dt, const SimBody&);
+	void solver_newtonian(double dt, const SimBody&);
 };
 
 // aliasing

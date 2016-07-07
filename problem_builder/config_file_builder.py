@@ -12,7 +12,8 @@ class ConfigFileBuilder:
 			'TotalTime': 1,
 			'SofteningParam': 0.0025,
 			'GravityStrength': 0.001,
-			'DebugOutput': 1
+			'DebugOutput': 1,
+			'Solver': 'rk4'
 		}
 
 		self.visualization_config = {}

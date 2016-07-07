@@ -30,6 +30,7 @@ SimManager::SimManager()
 	config.gravityStrength = 0.001;
 	config.totalSimTime = 1;
 	config.enableDebugOutput = true;
+	config.solver = "rk4";
 }
 
 // Initialize simulation
@@ -128,6 +129,7 @@ std::string SimManager::getConfigAsString() const {
 	configStream << '\t' << "Total Sim Time:   " << config.totalSimTime << '\n';
 	configStream << '\t' << "Softening Param:  " << config.softeningParam << '\n';
 	configStream << '\t' << "Gravity Strength: " << config.gravityStrength << '\n';
+	configStream << '\t' << "Solver:           " << config.solver << '\n';
 	configStream << '\t' << "Debug Output:     " << (config.enableDebugOutput ? 'T' : 'F');
 
 	return configStream.str();
@@ -207,6 +209,9 @@ bool SimManager::loadConfig(const std::string& configFile) {
 		} else if (paramName == "DebugOutput") {
 		
 			loadValue(ssParam, tmpConfig.enableDebugOutput);
+		} else if (paramName == "Solver") {
+			
+			loadValue(ssParam, tmpConfig.solver);
 		}
 	}
 

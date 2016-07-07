@@ -16,6 +16,7 @@ namespace {
 		double gravityStrength;
 
 		bool enableDebugOutput;
+		std::string solver;
 	} SimConfig;
 }
 
