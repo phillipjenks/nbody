@@ -223,7 +223,7 @@ namespace {
 		}
 	}
 
-	// Load a vlue from a stream without error checking
+	// Load a value from a stream without error checking
 	template<class T>
 	void loadValue(std::stringstream& ss, T& currVal) {
 
