@@ -29,7 +29,7 @@ SimManager::SimManager()
 	config.softeningParam = 0.0025;
 	config.gravityStrength = 0.001;
 	config.totalSimTime = 1;
-	config.enableDebugOutput = true;
+	config.enableDebugOutput = false;
 	config.solver = "rk4";
 }
 
@@ -142,30 +142,95 @@ void SimManager::printConfig() const {
 }
 
 namespace {
+
+	// Utility function to print input config errors. The input value can be an error string so it may have a different
+	// type than the default value
+	template<class T1, class T2>
+	inline void printInvalidInput(const std::string& paramName, T1 inputVal, T2 defaultVal) {
+		std::cout << "WARN: Received invalid input for config parameter '" << paramName << "' '" << inputVal << "'" << std::endl;
+		std::cout << "WARN: Using default value " << defaultVal << std::endl;
+	}
+
+	// Checks a string option against a list of possible options
+	inline bool validateStringOption(const std::string& paramName, const std::string& inputVal, std::vector<std::string>&& allowedVals) {
+		return std::find(allowedVals.begin(), allowedVals.end(), inputVal) != allowedVals.end();
+	}
+
+	// Check values of double parameters
+	inline bool isValidValue(const std::string& paramName, double val) {
+
+		bool isValid = true;
+		if (paramName == "TimeStep" ||
+			paramName == "OutputFrequency" ||
+			paramName == "TotalTime" ||
+			paramName == "SofteningParam" ||
+			paramName == "GravityStrength")
+		{
+			isValid = val > 0;
+		}
+
+		return isValid;
+	}
+
+	// Check values of string parameters
+	inline bool isValidValue(const std::string& paramName, const std::string& val) {
+
+		bool isValid = true;
+		if (paramName == "DebugOutput") {
+			std::string tmpVal = val;
+			std::transform(tmpVal.begin(), tmpVal.end(), tmpVal.begin(), ::tolower);
+			isValid = validateStringOption(paramName, tmpVal, { "true", "t", "1", "false", "f", "0" });
+		} else if (paramName == "Solver") {
+			isValid = validateStringOption(paramName, val, { "rk4", "newtonian" });
+		}
+
+		return isValid;
+	}
+
+	// Load a value from a stream, checking for stream errors and value validity
+	template<class T>
+	void loadValue(const std::string& paramName, std::stringstream& ss, T& currVal) {
+
+		T tmpVal = currVal;
+		ss >> tmpVal;
+		
+		if (ss.fail()) {
+
+			printInvalidInput(paramName, "ERROR: Failed To Read Input", currVal);
+		} else {
+
+			if (isValidValue(paramName, tmpVal)) {
+				currVal = tmpVal;
+			}
+			else {
+				printInvalidInput(paramName, tmpVal, currVal);
+			}
+		}
+	}
+
+	// Implement specific functionality for loadValue::<bool> with error checking
+	void loadValue(const std::string& paramName, std::stringstream& ss, bool& currVal) {
+
+		std::string asString = currVal ? "T" : "F";
+		loadValue(paramName, ss, asString);
+
+		std::transform(asString.begin(), asString.end(), asString.begin(), ::tolower);
+		if (asString == "true" || asString == "t" || asString == "1") {
+			currVal = true;
+		}
+		else if (asString == "false" || asString == "f" || asString == "0") {
+			currVal = false;
+		}
+	}
+
+	// Load a vlue from a stream without error checking
 	template<class T>
 	void loadValue(std::stringstream& ss, T& currVal) {
 
 		T tmpVal = currVal;
 		ss >> tmpVal;
-		
+
 		currVal = tmpVal;
-	}
-
-	// Implement specific functionality for loadValue::<bool>
-	void loadValue(std::stringstream& ss, bool& currVal) {
-
-		std::string asString;
-		loadValue(ss, asString);
-
-		if (!asString.empty()) {
-
-			std::transform(asString.begin(), asString.end(), asString.begin(), ::tolower);
-			if (asString == "true" || asString == "t" || asString == "1") {
-				currVal = true;
-			} else if(asString == "false" || asString == "f" || asString == "0") {
-				currVal = false;
-			}
-		}
 	}
 }
 
@@ -193,25 +258,25 @@ bool SimManager::loadConfig(const std::string& configFile) {
 
 		if (paramName == "TimeStep") {
 
-			loadValue(ssParam, tmpConfig.timeStep);
+			loadValue(paramName, ssParam, tmpConfig.timeStep);
 		} else if (paramName == "OutputFrequency") {
 
-			loadValue(ssParam, tmpConfig.outputFrequency);
+			loadValue(paramName, ssParam, tmpConfig.outputFrequency);
 		} else if (paramName == "TotalTime") {
 			
-			loadValue(ssParam, tmpConfig.totalSimTime);
+			loadValue(paramName, ssParam, tmpConfig.totalSimTime);
 		} else if (paramName == "SofteningParam") {
 
-			loadValue(ssParam, tmpConfig.softeningParam);
+			loadValue(paramName, ssParam, tmpConfig.softeningParam);
 		} else if (paramName == "GravityStrength") {
 
-			loadValue(ssParam, tmpConfig.gravityStrength);
+			loadValue(paramName, ssParam, tmpConfig.gravityStrength);
 		} else if (paramName == "DebugOutput") {
 		
-			loadValue(ssParam, tmpConfig.enableDebugOutput);
+			loadValue(paramName, ssParam, tmpConfig.enableDebugOutput);
 		} else if (paramName == "Solver") {
 			
-			loadValue(ssParam, tmpConfig.solver);
+			loadValue(paramName, ssParam, tmpConfig.solver);
 		}
 	}
 

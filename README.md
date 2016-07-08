@@ -29,7 +29,7 @@ Usage the `-c` argument you can provide an optional configuration file as input 
 - GravityStrength: Constant parameter that defines the strength of gravity. Defaults to 0.001.
 - SofteningParam: Constant that is added to r^2 in the denominator of the gravity equation to avoid numerical errors from dividing by small numbers. Defaults to 0.0025.
 - Solver: ('rk4' or 'newtonian') Sets the integration scheme. Defaults to 'rk4'.
-- DebugOutput: (0, 1, T, True, F, or False) Controls detail of output. False is recommended unless you're debugging your sim parameters. Defaults to true.
+- DebugOutput: (0, 1, T, True, F, or False) Controls detail of output. False is recommended unless you're debugging your sim parameters. Defaults to F.
 
 ## Test Problems
 
